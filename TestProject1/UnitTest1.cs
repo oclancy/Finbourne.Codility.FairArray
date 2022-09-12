@@ -18,7 +18,7 @@ namespace TestProject1
             long[] aAccumulationArr = new long[arrayLength];
             long[] bAccumulationArr = new long[arrayLength];
 
-            for (int index = 0, revIndex = arrayLength - 1; index < arrayLength; ++index, --revIndex)
+            for (int index = 0; index < arrayLength; ++index)
             {
                 aAccumulationArr[index] = index == 0 ? A[index] :
                                                        A[index] + aAccumulationArr[index - 1];
