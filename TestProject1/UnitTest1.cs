@@ -18,35 +18,25 @@ namespace TestProject1
             long[] aAccumulationArr = new long[arrayLength];
             long[] bAccumulationArr = new long[arrayLength];
 
-            long[] aRevAccumulationArr = new long[arrayLength];
-            long[] bRevAccumulationArr = new long[arrayLength];
-
-            long aAccumulation = 0;
-            long bAccumulation = 0;
-
-            var aRevAccumulation = 0;
-            var bRevAccumulation = 0;
             for (int index = 0, revIndex = arrayLength - 1; index < arrayLength; ++index, --revIndex)
             {
-                aAccumulation += A[index];
-                aAccumulationArr[index] = aAccumulation;
+                aAccumulationArr[index] = index == 0 ? A[index] :
+                                                       A[index] + aAccumulationArr[index - 1];
 
-                bAccumulation += B[index];
-                bAccumulationArr[index] = bAccumulation;
+                bAccumulationArr[index] = index == 0 ? B[index] :
+                                                       B[index] + bAccumulationArr[index - 1];
 
-                aRevAccumulation += A[revIndex];
-                aRevAccumulationArr[revIndex] = aRevAccumulation;
-
-                bRevAccumulation += B[revIndex];
-                bRevAccumulationArr[revIndex] = bRevAccumulation;
             }
 
             var fairCount = 0;
+            var sumA = aAccumulationArr[arrayLength-1];
+            var sumB = bAccumulationArr[arrayLength-1];
+
             for (int index = 0; index < arrayLength-1; ++index)
             {
                 if (aAccumulationArr[index] == bAccumulationArr[index] &&
-                   aAccumulationArr[index] == aRevAccumulationArr[index+1] &&
-                   aAccumulationArr[index] == bRevAccumulationArr[index+1])
+                   aAccumulationArr[index] == sumA - aAccumulationArr[index] &&
+                   aAccumulationArr[index] == sumB - bAccumulationArr[index] )
                 {
                     fairCount = fairCount + 1;
                 }
